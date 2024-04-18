@@ -28,7 +28,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         weatherView = findViewById(R.id.weatherView);
         tempView = findViewById(R.id.tempView);
         ImageButton button = findViewById(R.id.imageButton);
+
+        cityView.setText("Touch me!");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     Date date = new Date(now);
 
                     SimpleDateFormat simpleDateFormatDay = new SimpleDateFormat("yyyy-MM-dd");
-                    SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm:ss");
+                    SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
                     String getDay = simpleDateFormatDay.format(date);
                     String getTime = simpleDateFormatTime.format(date);
 
