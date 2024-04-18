@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         tempView = findViewById(R.id.tempView);
         ImageButton button = findViewById(R.id.imageButton);
 
-        cityView.setText("Touch me!");
+        cityView.setText("Touch me!!");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
