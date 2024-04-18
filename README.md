@@ -1,10 +1,10 @@
-# MyProject
+# Time Weather Widget
 
-MyProject is a simple Android application that retrieves weather information using the OpenWeatherMap API.
+Time Weather Widget is a simple Android application that retrieves weather information using the OpenWeatherMap API.
 
 ## Installation
 
-To install and run MyProject on your local machine, follow these steps:
+To install and run Time Weather Widget on your local machine, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/jayIsThere/TimeWeatherWidget/`
 2. Open the project in Android Studio.
