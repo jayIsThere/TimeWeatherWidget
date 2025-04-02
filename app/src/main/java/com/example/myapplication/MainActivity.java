@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     static RequestQueue requestQueue;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -57,28 +57,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 CurrentCall();
-
 
             }
 
         });
 
-        if(requestQueue == null){
+        if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-
-
-
-
-
-
 
     }
 
     private void CurrentCall() {
         String url = "http://api.openweathermap.org/data/2.5/weather?q=Gelsenkirchen&appid=db4644b2bdbe0f464e4f0278bbb866b7";
+
+        // Show loading state
+        cityView.setText("Loading...");
+        weatherView.setText("");
+        tempView.setText("");
 
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
 
@@ -98,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
                     String getDate = getDay + "\n" + getTime;
 
-
                     dateView.setText(getDate);
 
                     JSONObject jsonObject = new JSONObject(response);
@@ -113,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     weatherView.setText(weather);
 
                     JSONObject tempK = new JSONObject(jsonObject.getString("main"));
-                    double tempDo = (Math.round((tempK.getDouble("temp")-273.15)*100)/100.0);
+                    double tempDo = (Math.round((tempK.getDouble("temp") - 273.15) * 100) / 100.0);
                     tempView.setText(tempDo + "°C");
 
                 } catch (JSONException e) {
@@ -123,7 +119,22 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // Reset UI to error state
+                cityView.setText("Error");
+                weatherView.setText("");
+                tempView.setText("");
 
+                // Show error message based on the type of error
+                String errorMessage;
+                if (error.networkResponse == null) {
+                    // Network error (no internet connection)
+                    errorMessage = "Network error. Please check your internet connection.";
+                } else {
+                    // Server error
+                    errorMessage = "Failed to fetch weather data. Please try again later.";
+                }
+
+                Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_LONG).show();
             }
         }) {
             @Override
